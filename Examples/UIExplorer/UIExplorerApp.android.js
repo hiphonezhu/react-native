@@ -23,7 +23,7 @@ const {
   BackAndroid,
   Dimensions,
   DrawerLayoutAndroid,
-  NavigationExperimental,
+  NavigationExperimental, // 这个组件非官方, see https://github.com/facebook/react-native/issues/6184
   StyleSheet,
   ToolbarAndroid,
   View,
@@ -92,6 +92,10 @@ class UIExplorerApp extends React.Component {
         ref={(drawer) => { this.drawer = drawer; }}
         // 此方法用于渲染一个可以从屏幕一边拖入的导航视图
         renderNavigationView={this._renderDrawerContent.bind(this, onNavigate)}>
+
+        {
+          //渲染内容主视图
+        }
         {this._renderNavigation(navigationState, onNavigate)}
       </DrawerLayoutAndroid>
     );
@@ -118,7 +122,7 @@ class UIExplorerApp extends React.Component {
   }
 
   /**
-   * 根据状态等判断右侧显示具体内容
+   * 根据状态显示主视图
    * @param navigationState
    * @param onNavigate
    * @returns {XML}
@@ -167,9 +171,16 @@ class UIExplorerApp extends React.Component {
     // 显示所有例子列表
     return (
       <View style={styles.container}>
+        {
+          // 状态栏
+        }
         <StatusBar
-          backgroundColor="#589c90"
+          backgroundColor="#77589c90"
+          hidden={false}
         />
+        {
+          // 标题栏
+        }
         <ToolbarAndroid
           logo={require('image!launcher_icon')}
           navIcon={require('image!ic_menu_black_24dp')}
@@ -177,6 +188,9 @@ class UIExplorerApp extends React.Component {
           style={styles.toolbar}
           title={title}
         />
+        {
+          // demo列表
+        }
         <UIExplorerExampleList
           list={UIExplorerList}
           {...stack.children[0]}
